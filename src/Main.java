@@ -35,6 +35,27 @@ public class Main {
 
         return howManyLines;
     }
+
+    public static String[] getLine(int randomLine){
+        File plik = new File("Slowka.txt");
+        int licznik = 0;
+        String wiersz_tekstu = null;
+        String[] separator = null;
+
+
+        try (BufferedReader breader = new BufferedReader(new FileReader(plik))) {
+            while( (wiersz_tekstu = breader.readLine() ) != null  && licznik != randomLine)
+            {
+                separator = wiersz_tekstu.split(" - ");
+                Thread.sleep(10);
+                licznik++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return separator;
+    }
     public static void wypisanie(){
         String polski, angielski;
         String wiersz_tekstu = null;
@@ -58,38 +79,12 @@ public class Main {
 
     public static void losoweSlowko(){
         Random random = new Random();
-        int howManyLines = 0;
-        int randomLine = 0, licznik = 0;
         String polski = "", angielski = "";
-        String wiersz_tekstu = null;
-        String[] separator;
-        File plik = new File("Slowka.txt");
+        String[] tmp = null;
 
-        try (BufferedReader breader = new BufferedReader(new FileReader(plik))) {
-            while( breader.readLine() != null )
-            {
-                howManyLines++;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        randomLine = random.nextInt(howManyLines)+1;
-        System.out.println(randomLine);
-
-        try (BufferedReader breader = new BufferedReader(new FileReader(plik))) {
-            while( (wiersz_tekstu = breader.readLine() ) != null  && licznik != randomLine)
-            {
-                separator = wiersz_tekstu.split(" - ");
-                angielski = separator[0];
-                polski = separator[1];
-
-                Thread.sleep(10);
-                licznik++;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        tmp = getLine(random.nextInt(countLines())+1);
+        angielski = tmp[0];
+        polski = tmp[1];
 
         System.out.println(angielski + " - " + polski);
     }
@@ -193,6 +188,8 @@ public class Main {
         //wypisanie();
         //losoweSlowkoPol();
         //losoweSlowkoAng();
-        System.out.println(countLines());
+        //System.out.println(countLines());
+        losoweSlowko();
+
     }
 }
