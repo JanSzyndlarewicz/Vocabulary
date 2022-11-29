@@ -18,6 +18,23 @@ public class Main {
         out.close();
     }
 
+    public static int countLines(){
+
+        int howManyLines = 0;
+
+        File plik = new File("Slowka.txt");
+
+        try (BufferedReader breader = new BufferedReader(new FileReader(plik))) {
+            while( breader.readLine() != null )
+            {
+                howManyLines++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return howManyLines;
+    }
     public static void wypisanie(){
         String polski, angielski;
         String wiersz_tekstu = null;
@@ -175,6 +192,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         //wypisanie();
         //losoweSlowkoPol();
-        losoweSlowkoAng();
+        //losoweSlowkoAng();
+        System.out.println(countLines());
     }
 }
